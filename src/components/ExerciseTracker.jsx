@@ -291,134 +291,169 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
         )}
       </AnimatePresence>
 
-      {/* Exercise Logging Modal */}
-      {showExerciseModal && selectedExercise && (
-        <div className="modal modal-open">
-          <div className="modal-box">
-            <h3 className="font-bold text-lg mb-4">
-              Log {selectedExercise.name}
-            </h3>
-            
-            <div className="space-y-4">
-              {/* Exercise Type Specific Inputs */}
-              {selectedExercise.type === 'reps' && (
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Number of Reps</span>
-                  </label>
-                  <input
-                    type="number"
-                    placeholder="e.g. 20"
-                    value={exerciseData.reps}
-                    onChange={(e) => setExerciseData({...exerciseData, reps: e.target.value})}
-                    className="input input-bordered"
-                  />
-                </div>
-              )}
+      {/* Exercise Logging Modal - Properly Centered */}
+      <AnimatePresence>
+        {showExerciseModal && selectedExercise && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ backdropFilter: 'blur(8px)', backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
+            onClick={() => setShowExerciseModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-gray-900 border border-purple-500/30 rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white hover:bg-gray-700"
+                onClick={() => setShowExerciseModal(false)}
+              >
+                ✕
+              </button>
+              
+              <div className="text-center mb-6">
+                <div className="text-4xl mb-2">{selectedExercise.category?.icon || '🏋️'}</div>
+                <h3 className="text-2xl font-bold text-white mb-2">{selectedExercise.name}</h3>
+                <p className="text-gray-300 capitalize">Type: {selectedExercise.type}</p>
+              </div>
 
-              {selectedExercise.type === 'duration' && (
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Duration (minutes)</span>
-                  </label>
-                  <input
-                    type="number"
-                    placeholder="e.g. 30"
-                    value={exerciseData.duration}
-                    onChange={(e) => setExerciseData({...exerciseData, duration: e.target.value})}
-                    className="input input-bordered"
-                  />
-                </div>
-              )}
-
-              {selectedExercise.type === 'weight' && (
-                <>
+              <div className="space-y-4">
+                {/* Exercise Type Specific Inputs */}
+                {selectedExercise.type === 'reps' && (
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Weight (lbs)</span>
+                      <span className="label-text text-gray-300">Number of Reps</span>
                     </label>
                     <input
                       type="number"
-                      placeholder="e.g. 135"
-                      value={exerciseData.weight}
-                      onChange={(e) => setExerciseData({...exerciseData, weight: e.target.value})}
-                      className="input input-bordered"
-                    />
-                  </div>
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">Reps</span>
-                    </label>
-                    <input
-                      type="number"
-                      placeholder="e.g. 10"
+                      placeholder="e.g. 20"
                       value={exerciseData.reps}
                       onChange={(e) => setExerciseData({...exerciseData, reps: e.target.value})}
-                      className="input input-bordered"
+                      className="input input-bordered bg-gray-800 border-gray-600 text-white"
                     />
                   </div>
-                </>
-              )}
+                )}
 
-              {selectedExercise.type === 'pages' && (
+                {selectedExercise.type === 'duration' && (
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text text-gray-300">Duration (minutes)</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 30"
+                      value={exerciseData.duration}
+                      onChange={(e) => setExerciseData({...exerciseData, duration: e.target.value})}
+                      className="input input-bordered bg-gray-800 border-gray-600 text-white"
+                    />
+                  </div>
+                )}
+
+                {selectedExercise.type === 'weight' && (
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text text-gray-300">Weight (lbs)</span>
+                      </label>
+                      <input
+                        type="number"
+                        placeholder="e.g. 135"
+                        value={exerciseData.weight}
+                        onChange={(e) => setExerciseData({...exerciseData, weight: e.target.value})}
+                        className="input input-bordered bg-gray-800 border-gray-600 text-white"
+                      />
+                    </div>
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text text-gray-300">Reps</span>
+                      </label>
+                      <input
+                        type="number"
+                        placeholder="e.g. 10"
+                        value={exerciseData.reps}
+                        onChange={(e) => setExerciseData({...exerciseData, reps: e.target.value})}
+                        className="input input-bordered bg-gray-800 border-gray-600 text-white"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {selectedExercise.type === 'pages' && (
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text text-gray-300">Pages Read</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 25"
+                      value={exerciseData.pages}
+                      onChange={(e) => setExerciseData({...exerciseData, pages: e.target.value})}
+                      className="input input-bordered bg-gray-800 border-gray-600 text-white"
+                    />
+                  </div>
+                )}
+
+                {/* Difficulty Level */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Pages Read</span>
+                    <span className="label-text text-gray-300">Difficulty Level</span>
                   </label>
-                  <input
-                    type="number"
-                    placeholder="e.g. 25"
-                    value={exerciseData.pages}
-                    onChange={(e) => setExerciseData({...exerciseData, pages: e.target.value})}
-                    className="input input-bordered"
-                  />
+                  <select
+                    value={exerciseData.difficulty}
+                    onChange={(e) => setExerciseData({...exerciseData, difficulty: e.target.value})}
+                    className="select select-bordered bg-gray-800 border-gray-600 text-white"
+                  >
+                    <option value="easy">Easy (0.8x rewards)</option>
+                    <option value="normal">Normal (1.0x rewards)</option>
+                    <option value="hard">Hard (1.3x rewards)</option>
+                    <option value="extreme">Extreme (1.5x rewards)</option>
+                  </select>
                 </div>
-              )}
 
-              {/* Difficulty Level */}
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Difficulty Level</span>
-                </label>
-                <select
-                  value={exerciseData.difficulty}
-                  onChange={(e) => setExerciseData({...exerciseData, difficulty: e.target.value})}
-                  className="select select-bordered"
-                >
-                  <option value="easy">Easy (0.8x rewards)</option>
-                  <option value="normal">Normal (1.0x rewards)</option>
-                  <option value="hard">Hard (1.3x rewards)</option>
-                  <option value="extreme">Extreme (1.5x rewards)</option>
-                </select>
+                {/* Expected Rewards Preview */}
+                <div className="bg-gray-800/50 border border-gray-600/50 rounded-lg p-4">
+                  <h4 className="font-bold text-white mb-3">💪 Expected Rewards:</h4>
+                  <div className="space-y-2">
+                    <div className="flex flex-wrap gap-2">
+                      {Object.entries(selectedExercise.baseReward || {}).map(([stat, value]) => (
+                        <div key={stat} className="badge bg-purple-600 text-white border-0">
+                          +{Math.round(value * getDifficultyMultiplier(exerciseData.difficulty))} {stat}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-center">
+                      <div className="badge bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 font-bold">
+                        ⚡ +{Math.round(50 * getDifficultyMultiplier(exerciseData.difficulty))} XP
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-center gap-4 pt-4">
+                  <button
+                    onClick={() => setShowExerciseModal(false)}
+                    className="btn bg-gray-700 text-white border-gray-600 hover:bg-gray-600"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={logExercise}
+                    className="btn bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-0 font-bold hover:shadow-lg"
+                  >
+                    ⚡ Log Exercise
+                  </button>
+                </div>
               </div>
-
-              {/* Expected Rewards Preview */}
-              <div className="alert alert-info">
-                <span>
-                  Expected Rewards: {Object.entries(selectedExercise.baseReward)
-                    .map(([stat, value]) => `+${value} ${stat}`)
-                    .join(', ')}
-                </span>
-              </div>
-            </div>
-
-            <div className="modal-action">
-              <button
-                onClick={() => setShowExerciseModal(false)}
-                className="btn"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={logExercise}
-                className="btn btn-primary"
-              >
-                Log Exercise
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
