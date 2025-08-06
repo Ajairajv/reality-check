@@ -15,6 +15,17 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
     difficulty: 'normal'
   });
 
+  // Helper function for difficulty multiplier
+  const getDifficultyMultiplier = (difficulty) => {
+    const multipliers = {
+      'easy': 0.8,
+      'normal': 1.0,
+      'hard': 1.3,
+      'extreme': 1.5
+    };
+    return multipliers[difficulty] || 1.0;
+  };
+
   // Exercise categories and their stat benefits
   const exerciseCategories = [
     {
@@ -326,60 +337,121 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
               <div className="space-y-4">
                 {/* Exercise Type Specific Inputs */}
                 {selectedExercise.type === 'reps' && (
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text text-gray-300">Number of Reps</span>
-                    </label>
-                    <input
-                      type="number"
-                      placeholder="e.g. 20"
-                      value={exerciseData.reps}
-                      onChange={(e) => setExerciseData({...exerciseData, reps: e.target.value})}
-                      className="input input-bordered bg-gray-800 border-gray-600 text-white"
-                    />
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="form-control">
+                        <label className="label">
+                          <span className="label-text text-gray-300 font-bold">🔢 Reps</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="number"
+                            placeholder="15"
+                            value={exerciseData.reps}
+                            onChange={(e) => setExerciseData({...exerciseData, reps: e.target.value})}
+                            className="input input-bordered bg-gray-800 border-gray-600 text-white pr-12 text-lg font-bold"
+                          />
+                          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-400 font-bold text-sm">
+                            reps
+                          </span>
+                        </div>
+                      </div>
+                      <div className="form-control">
+                        <label className="label">
+                          <span className="label-text text-gray-300 font-bold">📊 Sets</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="number"
+                            placeholder="3"
+                            value={exerciseData.sets}
+                            onChange={(e) => setExerciseData({...exerciseData, sets: e.target.value})}
+                            className="input input-bordered bg-gray-800 border-gray-600 text-white pr-12 text-lg font-bold"
+                          />
+                          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400 font-bold text-sm">
+                            sets
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
 
                 {selectedExercise.type === 'duration' && (
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text text-gray-300">Duration (minutes)</span>
+                      <span className="label-text text-gray-300 font-bold">⏱️ Duration</span>
                     </label>
-                    <input
-                      type="number"
-                      placeholder="e.g. 30"
-                      value={exerciseData.duration}
-                      onChange={(e) => setExerciseData({...exerciseData, duration: e.target.value})}
-                      className="input input-bordered bg-gray-800 border-gray-600 text-white"
-                    />
+                    <div className="relative">
+                      <input
+                        type="number"
+                        placeholder="30"
+                        value={exerciseData.duration}
+                        onChange={(e) => setExerciseData({...exerciseData, duration: e.target.value})}
+                        className="input input-bordered bg-gray-800 border-gray-600 text-white pr-16 text-lg font-bold"
+                      />
+                      <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-orange-400 font-bold text-sm">
+                        minutes
+                      </span>
+                    </div>
                   </div>
                 )}
 
                 {selectedExercise.type === 'weight' && (
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="form-control">
-                      <label className="label">
-                        <span className="label-text text-gray-300">Weight (lbs)</span>
-                      </label>
-                      <input
-                        type="number"
-                        placeholder="e.g. 135"
-                        value={exerciseData.weight}
-                        onChange={(e) => setExerciseData({...exerciseData, weight: e.target.value})}
-                        className="input input-bordered bg-gray-800 border-gray-600 text-white"
-                      />
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="form-control">
+                        <label className="label">
+                          <span className="label-text text-gray-300 font-bold">⚖️ Weight</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="number"
+                            step="0.5"
+                            placeholder="60"
+                            value={exerciseData.weight}
+                            onChange={(e) => setExerciseData({...exerciseData, weight: e.target.value})}
+                            className="input input-bordered bg-gray-800 border-gray-600 text-white pr-12 text-lg font-bold"
+                          />
+                          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-400 font-bold text-sm">
+                            kg
+                          </span>
+                        </div>
+                      </div>
+                      <div className="form-control">
+                        <label className="label">
+                          <span className="label-text text-gray-300 font-bold">🔢 Reps</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="number"
+                            placeholder="10"
+                            value={exerciseData.reps}
+                            onChange={(e) => setExerciseData({...exerciseData, reps: e.target.value})}
+                            className="input input-bordered bg-gray-800 border-gray-600 text-white pr-12 text-lg font-bold"
+                          />
+                          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-400 font-bold text-sm">
+                            reps
+                          </span>
+                        </div>
+                      </div>
                     </div>
                     <div className="form-control">
                       <label className="label">
-                        <span className="label-text text-gray-300">Reps</span>
+                        <span className="label-text text-gray-300 font-bold">📊 Sets</span>
                       </label>
-                      <input
-                        type="number"
-                        placeholder="e.g. 10"
-                        value={exerciseData.reps}
-                        onChange={(e) => setExerciseData({...exerciseData, reps: e.target.value})}
-                        className="input input-bordered bg-gray-800 border-gray-600 text-white"
-                      />
+                      <div className="relative">
+                        <input
+                          type="number"
+                          placeholder="3"
+                          value={exerciseData.sets}
+                          onChange={(e) => setExerciseData({...exerciseData, sets: e.target.value})}
+                          className="input input-bordered bg-gray-800 border-gray-600 text-white pr-12 text-lg font-bold"
+                        />
+                        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400 font-bold text-sm">
+                          sets
+                        </span>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -387,15 +459,20 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
                 {selectedExercise.type === 'pages' && (
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text text-gray-300">Pages Read</span>
+                      <span className="label-text text-gray-300 font-bold">📖 Pages</span>
                     </label>
-                    <input
-                      type="number"
-                      placeholder="e.g. 25"
-                      value={exerciseData.pages}
-                      onChange={(e) => setExerciseData({...exerciseData, pages: e.target.value})}
-                      className="input input-bordered bg-gray-800 border-gray-600 text-white"
-                    />
+                    <div className="relative">
+                      <input
+                        type="number"
+                        placeholder="25"
+                        value={exerciseData.pages}
+                        onChange={(e) => setExerciseData({...exerciseData, pages: e.target.value})}
+                        className="input input-bordered bg-gray-800 border-gray-600 text-white pr-12 text-lg font-bold"
+                      />
+                      <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-cyan-400 font-bold text-sm">
+                        pages
+                      </span>
+                    </div>
                   </div>
                 )}
 
