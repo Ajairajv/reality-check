@@ -80,8 +80,8 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
       exercises: [
         { name: 'Running', type: 'duration', baseReward: { physicalEndurance: 3, agility: 2, discipline: 1 } },
         { name: 'Cycling', type: 'duration', baseReward: { physicalEndurance: 2, agility: 1 } },
-        { name: 'Swimming', type: 'duration', baseReward: { physicalEndurance: 3, strength: 1, agility: 1 } },
-        { name: 'HIIT Workout', type: 'duration', baseReward: { physicalEndurance: 4, agility: 2, discipline: 2 } },
+        { name: 'Swimming', type: 'duration', baseReward: { physicalEndurance: 3, strength: 1 } },
+        { name: 'HIIT Workout', type: 'duration', baseReward: { physicalEndurance: 4, agility: 2 } },
         { name: 'Jump Rope', type: 'duration', baseReward: { physicalEndurance: 2, agility: 3 } }
       ]
     },
@@ -89,28 +89,28 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
       id: 'mindfulness',
       name: 'Mindfulness & Mental',
       icon: '🧘',
-      color: 'from-purple-500 to-purple-600',
+      color: 'from-purple-500 to-indigo-500',
       primaryStat: 'discipline',
       exercises: [
-        { name: 'Meditation', type: 'duration', baseReward: { discipline: 3, mentalResilience: 2, focusPoints: 1 } },
-        { name: 'Yoga', type: 'duration', baseReward: { discipline: 2, physicalEndurance: 1, mentalResilience: 1, agility: 1 } },
-        { name: 'Breathing Exercises', type: 'duration', baseReward: { discipline: 2, mentalResilience: 2 } },
-        { name: 'Cold Shower', type: 'duration', baseReward: { discipline: 3, mentalResilience: 3 } },
-        { name: 'Journaling', type: 'duration', baseReward: { discipline: 1, intelligence: 1, creativity: 1 } }
+        { name: 'Meditation', type: 'duration', baseReward: { discipline: 3, mentalResilience: 2 } },
+        { name: 'Breathing Exercises', type: 'duration', baseReward: { discipline: 2, mentalResilience: 3 } },
+        { name: 'Yoga', type: 'duration', baseReward: { discipline: 2, physicalEndurance: 1, agility: 1 } },
+        { name: 'Journaling', type: 'duration', baseReward: { discipline: 1, intelligence: 2 } },
+        { name: 'Mindful Walking', type: 'duration', baseReward: { discipline: 2, mentalResilience: 1 } }
       ]
     },
     {
       id: 'learning',
       name: 'Learning & Reading',
       icon: '📚',
-      color: 'from-blue-500 to-blue-600',
+      color: 'from-blue-500 to-cyan-500',
       primaryStat: 'intelligence',
       exercises: [
-        { name: 'Reading Books', type: 'pages', baseReward: { intelligence: 3, focusPoints: 2, creativity: 1 } },
-        { name: 'Online Course', type: 'duration', baseReward: { intelligence: 4, focusPoints: 2 } },
-        { name: 'Language Learning', type: 'duration', baseReward: { intelligence: 2, focusPoints: 1, discipline: 1 } },
-        { name: 'Podcasts', type: 'duration', baseReward: { intelligence: 2, focusPoints: 1 } },
-        { name: 'Research', type: 'duration', baseReward: { intelligence: 3, focusPoints: 2 } }
+        { name: 'Reading Books', type: 'pages', baseReward: { intelligence: 3, discipline: 1 } },
+        { name: 'Online Courses', type: 'duration', baseReward: { intelligence: 4, discipline: 1 } },
+        { name: 'Research', type: 'duration', baseReward: { intelligence: 3, focusPoints: 2 } },
+        { name: 'Language Learning', type: 'duration', baseReward: { intelligence: 2, discipline: 2 } },
+        { name: 'Skill Practice', type: 'duration', baseReward: { intelligence: 2, focusPoints: 1 } }
       ]
     },
     {
@@ -121,31 +121,34 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
       primaryStat: 'creativity',
       exercises: [
         { name: 'Drawing/Painting', type: 'duration', baseReward: { creativity: 3, focusPoints: 1 } },
-        { name: 'Music Practice', type: 'duration', baseReward: { creativity: 3, focusPoints: 2, discipline: 1 } },
-        { name: 'Writing', type: 'duration', baseReward: { creativity: 2, intelligence: 1, focusPoints: 1 } },
-        { name: 'Photography', type: 'duration', baseReward: { creativity: 2, focusPoints: 1 } },
-        { name: 'Crafting/DIY', type: 'duration', baseReward: { creativity: 2, focusPoints: 1 } }
+        { name: 'Music Practice', type: 'duration', baseReward: { creativity: 3, discipline: 1 } },
+        { name: 'Writing', type: 'duration', baseReward: { creativity: 2, intelligence: 2 } },
+        { name: 'Photography', type: 'duration', baseReward: { creativity: 2, agility: 1 } },
+        { name: 'Crafting', type: 'duration', baseReward: { creativity: 2, focusPoints: 2 } }
       ]
     },
     {
       id: 'social',
       name: 'Social & Communication',
       icon: '👥',
-      color: 'from-cyan-500 to-blue-500',
+      color: 'from-green-500 to-teal-500',
       primaryStat: 'agility',
       exercises: [
         { name: 'Public Speaking', type: 'duration', baseReward: { agility: 3, mentalResilience: 2, intelligence: 1 } },
         { name: 'Social Events', type: 'duration', baseReward: { agility: 2, mentalResilience: 1 } },
-        { name: 'Team Sports', type: 'duration', baseReward: { agility: 2, physicalEndurance: 2, strength: 1 } },
+        { name: 'Team Sports', type: 'duration', baseReward: { agility: 2, physicalEndurance: 2 } },
         { name: 'Networking', type: 'duration', baseReward: { agility: 2, intelligence: 1 } },
-        { name: 'Presentations', type: 'duration', baseReward: { agility: 2, intelligence: 2, mentalResilience: 1 } }
+        { name: 'Group Activities', type: 'duration', baseReward: { agility: 3, creativity: 1 } }
       ]
     }
   ];
 
-  const logExercise = () => {
-    if (!selectedExercise || !user) return;
+  const handleExerciseComplete = () => {
+    if (!selectedExercise || (!exerciseData.reps && !exerciseData.duration && !exerciseData.weight && !exerciseData.pages)) {
+      return;
+    }
 
+    // Find the category for this exercise
     const category = exerciseCategories.find(cat => 
       cat.exercises.some(ex => ex.name === selectedExercise.name)
     );
@@ -258,60 +261,12 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
                   {category.icon}
                 </div>
                 <h3 className="font-bold text-sm">{category.name}</h3>
-                <p className="text-xs text-base-content/70 capitalize">
-                  Primary: {category.primaryStat}
-                </p>
+                <p className="text-xs text-gray-400 mt-1">Primary: {category.primaryStat}</p>
               </div>
             </div>
           </motion.div>
         ))}
       </div>
-
-      {/* Selected Category Exercises */}
-      <AnimatePresence>
-        {selectedCategory && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="card bg-base-200 shadow-xl"
-          >
-            <div className="card-body">
-              <h3 className="card-title">
-                <span className="text-2xl">{selectedCategory.icon}</span>
-                {selectedCategory.name} Exercises
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                {selectedCategory.exercises.map((exercise, index) => (
-                  <motion.div
-                    key={exercise.name}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="card bg-base-300 shadow-md card-hover cursor-pointer"
-                    onClick={() => openExerciseModal(exercise, selectedCategory)}
-                  >
-                    <div className="card-body p-4">
-                      <h4 className="font-semibold text-sm">{exercise.name}</h4>
-                      <p className="text-xs text-base-content/70 capitalize">
-                        Type: {exercise.type}
-                      </p>
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {Object.entries(exercise.baseReward).map(([stat, value]) => (
-                          <div key={stat} className="badge badge-sm badge-primary">
-                            +{value} {stat}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Category Exercise List Modal */}
       <AnimatePresence>
@@ -438,14 +393,7 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
               className="bg-gray-900 border border-purple-500/30 rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <button 
-                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white hover:bg-gray-700"
-                onClick={() => setShowExerciseModal(false)}
-              >
-                ✕
-              </button>
-              
-                            {/* Modal Header */}
+              {/* Modal Header */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <button
@@ -480,7 +428,7 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="form-control">
-                        <label className="label">
+                        <label className="label pb-2">
                           <span className="label-text text-gray-300 font-bold">🔢 Reps</span>
                         </label>
                         <div className="relative">
@@ -497,7 +445,7 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
                         </div>
                       </div>
                       <div className="form-control">
-                        <label className="label">
+                        <label className="label pb-2">
                           <span className="label-text text-gray-300 font-bold">📊 Sets</span>
                         </label>
                         <div className="relative">
@@ -519,7 +467,7 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
 
                 {selectedExercise.type === 'duration' && (
                   <div className="form-control">
-                    <label className="label">
+                    <label className="label pb-2">
                       <span className="label-text text-gray-300 font-bold">⏱️ Duration</span>
                     </label>
                     <div className="relative">
@@ -541,7 +489,7 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="form-control">
-                        <label className="label">
+                        <label className="label pb-2">
                           <span className="label-text text-gray-300 font-bold">⚖️ Weight</span>
                         </label>
                         <div className="relative">
@@ -559,7 +507,7 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
                         </div>
                       </div>
                       <div className="form-control">
-                        <label className="label">
+                        <label className="label pb-2">
                           <span className="label-text text-gray-300 font-bold">🔢 Reps</span>
                         </label>
                         <div className="relative">
@@ -577,7 +525,7 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
                       </div>
                     </div>
                     <div className="form-control">
-                      <label className="label">
+                      <label className="label pb-2">
                         <span className="label-text text-gray-300 font-bold">📊 Sets</span>
                       </label>
                       <div className="relative">
@@ -598,7 +546,7 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
 
                 {selectedExercise.type === 'pages' && (
                   <div className="form-control">
-                    <label className="label">
+                    <label className="label pb-2">
                       <span className="label-text text-gray-300 font-bold">📖 Pages</span>
                     </label>
                     <div className="relative">
@@ -616,56 +564,48 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
                   </div>
                 )}
 
-                {/* Difficulty Level */}
+                {/* Difficulty Selector */}
                 <div className="form-control">
-                  <label className="label">
-                    <span className="label-text text-gray-300">Difficulty Level</span>
+                  <label className="label pb-2">
+                    <span className="label-text text-gray-300 font-bold">🎯 Difficulty</span>
                   </label>
-                  <select
-                    value={exerciseData.difficulty}
-                    onChange={(e) => setExerciseData({...exerciseData, difficulty: e.target.value})}
-                    className="select select-bordered bg-gray-800 border-gray-600 text-white"
-                  >
-                    <option value="easy">Easy (0.8x rewards)</option>
-                    <option value="normal">Normal (1.0x rewards)</option>
-                    <option value="hard">Hard (1.3x rewards)</option>
-                    <option value="extreme">Extreme (1.5x rewards)</option>
-                  </select>
-                </div>
-
-                {/* Expected Rewards Preview */}
-                <div className="bg-gray-800/50 border border-gray-600/50 rounded-lg p-4">
-                  <h4 className="font-bold text-white mb-3">💪 Expected Rewards:</h4>
-                  <div className="space-y-2">
-                    <div className="flex flex-wrap gap-2">
-                      {Object.entries(selectedExercise.baseReward || {}).map(([stat, value]) => (
-                        <div key={stat} className="badge bg-purple-600 text-white border-0">
-                          +{Math.round(value * getDifficultyMultiplier(exerciseData.difficulty))} {stat}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="text-center">
-                      <div className="badge bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 font-bold">
-                        ⚡ +{Math.round(50 * getDifficultyMultiplier(exerciseData.difficulty))} XP
-                      </div>
-                    </div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    {['easy', 'normal', 'hard', 'extreme'].map(diff => (
+                      <button
+                        key={diff}
+                        onClick={() => setExerciseData({...exerciseData, difficulty: diff})}
+                        className={`btn btn-sm capitalize ${
+                          exerciseData.difficulty === diff 
+                            ? 'btn-primary' 
+                            : 'btn-outline btn-gray'
+                        }`}
+                      >
+                        {diff}
+                      </button>
+                    ))}
                   </div>
                 </div>
 
-                <div className="flex justify-center gap-4 pt-4">
-                  <button
-                    onClick={() => setShowExerciseModal(false)}
-                    className="btn bg-gray-700 text-white border-gray-600 hover:bg-gray-600"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={logExercise}
-                    className="btn bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-0 font-bold hover:shadow-lg"
-                  >
-                    ⚡ Log Exercise
-                  </button>
+                {/* Expected Rewards Preview */}
+                <div className="bg-purple-600/10 border border-purple-500/20 rounded-lg p-4">
+                  <h4 className="text-sm font-bold text-purple-300 mb-2">Expected Rewards Preview:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {Object.entries(selectedExercise.baseReward || {}).map(([stat, value]) => (
+                      <div key={stat} className="badge bg-purple-600 text-white border-0">
+                        +{Math.round(value * getDifficultyMultiplier(exerciseData.difficulty))} {stat}
+                      </div>
+                    ))}
+                  </div>
                 </div>
+
+                {/* Complete Button */}
+                <button
+                  onClick={handleExerciseComplete}
+                  className="btn btn-primary btn-lg w-full bg-gradient-to-r from-purple-600 to-indigo-600 border-0 text-white font-bold"
+                >
+                  <span className="text-xl">💪</span>
+                  Complete Exercise
+                </button>
               </div>
             </motion.div>
           </motion.div>
