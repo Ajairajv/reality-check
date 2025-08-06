@@ -66,7 +66,7 @@ const RealityCheckDashboard = ({ user, tasks, realityStats, onStatUpdate, onAddN
   );
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Hero Panel - Centered & Compact */}
       <div className="flex justify-center">
         <div className="bg-gray-900 border border-purple-500/30 rounded-xl p-6 max-w-4xl w-full">
@@ -104,12 +104,12 @@ const RealityCheckDashboard = ({ user, tasks, realityStats, onStatUpdate, onAddN
       </div>
 
       {/* Core RPG Stats - Centered Grid */}
-      <div className="flex justify-center">
-        <div className="bg-gray-900 border border-blue-500/30 rounded-xl p-6 max-w-4xl w-full">
+      <div className="flex justify-center mt-8">
+        <div className="bg-gray-900 border border-blue-500/30 rounded-xl p-8 max-w-4xl w-full">
           <h3 className="text-lg font-black mb-6 text-blue-400 text-center">
             💪 Core Attributes
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {coreStats.map((stat) => (
               <StatBar
                 key={stat}
@@ -123,12 +123,12 @@ const RealityCheckDashboard = ({ user, tasks, realityStats, onStatUpdate, onAddN
       </div>
 
       {/* Advanced Stats - Centered Grid */}
-      <div className="flex justify-center">
-        <div className="bg-gray-900 border border-green-500/30 rounded-xl p-6 max-w-4xl w-full">
+      <div className="flex justify-center mt-8">
+        <div className="bg-gray-900 border border-green-500/30 rounded-xl p-8 max-w-4xl w-full">
           <h3 className="text-lg font-black mb-6 text-green-400 text-center">
             🧠 Advanced Abilities
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {advancedStats.map((stat) => (
               <StatBar
                 key={stat}
@@ -142,12 +142,12 @@ const RealityCheckDashboard = ({ user, tasks, realityStats, onStatUpdate, onAddN
       </div>
 
       {/* Lifestyle Scores - Centered Grid */}
-      <div className="flex justify-center">
-        <div className="bg-gray-900 border border-amber-500/30 rounded-xl p-6 max-w-4xl w-full">
+      <div className="flex justify-center mt-8">
+        <div className="bg-gray-900 border border-amber-500/30 rounded-xl p-8 max-w-4xl w-full">
           <h3 className="text-lg font-black mb-6 text-amber-400 text-center">
             🌟 Lifestyle Balance
           </h3>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <LifestyleScore 
               label="Health" 
               score={lifestyleScores.health} 
@@ -177,7 +177,7 @@ const RealityCheckDashboard = ({ user, tasks, realityStats, onStatUpdate, onAddN
       </div>
 
       {/* Exercise Tracker - Centered */}
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-8">
         <div className="max-w-4xl w-full">
           <ExerciseTracker
             onStatBoost={(statBoosts, xpGain) => {
