@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 // Removed levelingSystem import - functions now in realityCheckStats.js
 import { apiService } from '../services/api';
-import DebugPanel from '../components/DebugPanel';
+// Debug panel removed
 import Footer from '../components/Footer';
 import RealityCheckDashboard from '../components/RealityCheckDashboard';
 import { 
@@ -152,8 +152,7 @@ export default function TaskManager() {
         const savedCurrentUser = JSON.parse(localStorage.getItem('taskManager_currentUser') || 'null');
         const savedNotifications = JSON.parse(localStorage.getItem('taskManager_notifications') || '[]');
 
-        console.log('Loaded tasks:', savedTasks); // Debug log
-        console.log('Loaded users:', savedUsers); // Debug log
+              // Debug logs removed
 
         setTasks(savedTasks);
         setUsers(savedUsers);
@@ -238,7 +237,7 @@ export default function TaskManager() {
 
   // Task Management Functions
   const addTask = async () => {
-    console.log('Adding task with data:', newTask); // Debug log
+    // Debug log removed
     
     if (!newTask.title.trim()) {
       console.log('Task title is empty');
@@ -257,17 +256,17 @@ export default function TaskManager() {
       estimatedHours: newTask.estimatedHours || 1
     };
     
-    console.log('Created task object:', task); // Debug log
+          // Debug log removed
     
     try {
       // Use API service to create task
       const createdTask = await apiService.createTask(task);
-      console.log('Task created successfully:', createdTask); // Debug log
+              // Debug log removed
       
       // Update local state
       setTasks(prev => {
         const newTasks = [createdTask, ...prev];
-        console.log('Updated tasks array:', newTasks); // Debug log
+        // Debug log removed
         return newTasks;
       });
       
@@ -466,28 +465,7 @@ export default function TaskManager() {
     ));
   };
 
-  // Debug function to create test tasks
-  const createTestTask = async (testTaskData: any) => {
-    const task: Task = {
-      id: Date.now(),
-      ...testTaskData,
-      completed: false,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      userId: currentUser?.id || null,
-      completedAt: null,
-      estimatedHours: 1
-    };
-    
-    try {
-      const createdTask = await apiService.createTask(task);
-      setTasks(prev => [createdTask, ...prev]);
-      addNotification('Test task created successfully!', 'success');
-    } catch (error) {
-      console.error('Error creating test task:', error);
-      addNotification('Failed to create test task', 'error');
-    }
-  };
+  // Debug function removed
 
   // Computed Values
   const userTasks = useMemo(() => {
@@ -1416,16 +1394,8 @@ export default function TaskManager() {
     )}
   </AnimatePresence>
 
-      {/* Footer */}
+      {/* Footer - Positioned at the end of the page */}
       <Footer />
-
-      {/* Debug Panel */}
-      <DebugPanel 
-        tasks={tasks}
-        users={users}
-        currentUser={currentUser}
-        onCreateTestTask={createTestTask}
-      />
     </div>
   );
 } 
