@@ -53,29 +53,43 @@ const Footer = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
           >
-            <div className="relative">
+            <div className="relative group cursor-pointer" title="Hover for inspiration!">
               {/* Glowing border effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 rounded-full blur-md opacity-75"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 rounded-full blur-md opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
               
               {/* Image container */}
-              <div className="relative w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-white/20 bg-gray-800">
+              <div className="relative w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-white/20 bg-gray-800 transition-all duration-300 group-hover:scale-105">
                 {/* Suriya SVG placeholder - Replace with actual photo */}
                 <img 
                   src="/suriya-placeholder.svg" 
                   alt="Actor Suriya - Motivation" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
                 
                 {/* To use an actual photo, replace the src above with: */}
                 {/* <img 
                   src="/suriya-photo.jpg" 
                   alt="Actor Suriya" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 /> */}
+
+                {/* Hover Quote Overlay */}
+                <div className="absolute inset-0 bg-black/80 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center p-4">
+                  <div className="text-center">
+                    <div className="text-white text-xs lg:text-sm font-bold leading-tight mb-2">
+                      "{quotes[currentQuote].text.length > 60 
+                        ? quotes[currentQuote].text.substring(0, 60) + '...' 
+                        : quotes[currentQuote].text}"
+                    </div>
+                    <div className="text-purple-300 text-xs font-semibold">
+                      - {quotes[currentQuote].movie}
+                    </div>
+                  </div>
+                </div>
               </div>
               
               {/* Achievement badge */}
-              <div className="absolute -bottom-2 -right-2 bg-yellow-500 text-black px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+              <div className="absolute -bottom-2 -right-2 bg-yellow-500 text-black px-3 py-1 rounded-full text-xs font-bold shadow-lg transition-all duration-300 group-hover:bg-yellow-400 group-hover:scale-110">
                 ⭐ Inspiration
               </div>
             </div>
