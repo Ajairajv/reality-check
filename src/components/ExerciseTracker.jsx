@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [showExerciseModal, setShowExerciseModal] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [exerciseData, setExerciseData] = useState({
@@ -239,7 +240,10 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
             className="card bg-base-200 shadow-xl card-hover cursor-pointer"
-            onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+            onClick={() => {
+              setSelectedCategory(category);
+              setShowCategoryModal(true);
+            }}
           >
             <div className="card-body p-4">
               <div className="text-center">
@@ -302,6 +306,112 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
         )}
       </AnimatePresence>
 
+      {/* Category Exercise List Modal */}
+      <AnimatePresence>
+        {showCategoryModal && selectedCategory && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ backdropFilter: 'blur(8px)', backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
+            onClick={() => setShowCategoryModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-gray-900 border border-purple-500/30 rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${selectedCategory.color} flex items-center justify-center text-xl`}>
+                    {selectedCategory.icon}
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">{selectedCategory.name}</h2>
+                    <p className="text-gray-400">Choose an exercise to track</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowCategoryModal(false)}
+                  className="btn btn-ghost btn-circle text-xl hover:bg-gray-800"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Exercise List */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {selectedCategory.exercises.map((exercise, index) => (
+                  <motion.div
+                    key={exercise.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 hover:border-purple-500/30 cursor-pointer transition-all duration-200 hover:bg-gray-800/70"
+                    onClick={() => {
+                      setSelectedExercise(exercise);
+                      setShowCategoryModal(false);
+                      setShowExerciseModal(true);
+                    }}
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className="font-bold text-white text-lg">{exercise.name}</h3>
+                      <div className="flex items-center gap-2">
+                        <span className="badge badge-outline text-xs">
+                          {exercise.type}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    {/* Stat Boosts Preview */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {Object.entries(exercise.baseReward || {}).map(([stat, value]) => (
+                        <div key={stat} className="badge bg-purple-600/20 text-purple-300 border-purple-500/30 text-xs">
+                          +{value} {stat}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Exercise Type Indicator */}
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                      {exercise.type === 'weight' && (
+                        <>
+                          <span>⚖️</span>
+                          <span>Weight & Reps</span>
+                        </>
+                      )}
+                      {exercise.type === 'reps' && (
+                        <>
+                          <span>🔢</span>
+                          <span>Reps & Sets</span>
+                        </>
+                      )}
+                      {exercise.type === 'duration' && (
+                        <>
+                          <span>⏱️</span>
+                          <span>Duration</span>
+                        </>
+                      )}
+                      {exercise.type === 'pages' && (
+                        <>
+                          <span>📖</span>
+                          <span>Pages</span>
+                        </>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Exercise Logging Modal - Properly Centered */}
       <AnimatePresence>
         {showExerciseModal && selectedExercise && (
@@ -328,10 +438,33 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
                 ✕
               </button>
               
-              <div className="text-center mb-6">
-                <div className="text-4xl mb-2">{selectedExercise.category?.icon || '🏋️'}</div>
-                <h3 className="text-2xl font-bold text-white mb-2">{selectedExercise.name}</h3>
-                <p className="text-gray-300 capitalize">Type: {selectedExercise.type}</p>
+                            {/* Modal Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => {
+                      setShowExerciseModal(false);
+                      setShowCategoryModal(true);
+                    }}
+                    className="btn btn-ghost btn-circle text-lg hover:bg-gray-800"
+                    title="Back to exercise list"
+                  >
+                    ←
+                  </button>
+                  <div className="flex items-center gap-3">
+                    <div className="text-3xl">{selectedCategory?.icon || '🏋️'}</div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">{selectedExercise.name}</h3>
+                      <p className="text-gray-400 capitalize">Type: {selectedExercise.type}</p>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowExerciseModal(false)}
+                  className="btn btn-ghost btn-circle text-xl hover:bg-gray-800"
+                >
+                  ✕
+                </button>
               </div>
 
               <div className="space-y-4">
