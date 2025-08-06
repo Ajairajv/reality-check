@@ -36,7 +36,7 @@ const RealityCheckDashboard = ({ user, tasks, realityStats, onStatUpdate, onAddN
     const percentage = Math.min((value / max) * 100, 100);
     
     return (
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex justify-between items-center">
           <span className="text-xs font-bold text-gray-300">{statNames[stat]}</span>
           <span className="text-xs font-black text-white">{value}</span>
@@ -55,7 +55,7 @@ const RealityCheckDashboard = ({ user, tasks, realityStats, onStatUpdate, onAddN
   };
 
   const LifestyleScore = ({ label, score, icon, color }) => (
-    <div className="text-center">
+    <div className="text-center space-y-2">
       <div className={`radial-progress ${color} text-sm font-bold mb-2 border-2`} 
            style={{"--value": score, "--size": "3.5rem", "--thickness": "3px"}}>
         {Math.round(score)}
@@ -109,7 +109,7 @@ const RealityCheckDashboard = ({ user, tasks, realityStats, onStatUpdate, onAddN
           <h3 className="text-lg font-black mb-6 text-blue-400 text-center">
             💪 Core Attributes
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
             {coreStats.map((stat) => (
               <StatBar
                 key={stat}
@@ -128,7 +128,7 @@ const RealityCheckDashboard = ({ user, tasks, realityStats, onStatUpdate, onAddN
           <h3 className="text-lg font-black mb-6 text-green-400 text-center">
             🧠 Advanced Abilities
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
             {advancedStats.map((stat) => (
               <StatBar
                 key={stat}
@@ -147,7 +147,7 @@ const RealityCheckDashboard = ({ user, tasks, realityStats, onStatUpdate, onAddN
           <h3 className="text-lg font-black mb-6 text-amber-400 text-center">
             🌟 Lifestyle Balance
           </h3>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-6">
             <LifestyleScore 
               label="Health" 
               score={lifestyleScores.health} 

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 // Removed levelingSystem import - functions now in realityCheckStats.js
 import { apiService } from '../services/api';
 import DebugPanel from '../components/DebugPanel';
+import Footer from '../components/Footer';
 import RealityCheckDashboard from '../components/RealityCheckDashboard';
 import { 
   defaultRealityStats, 
@@ -1414,6 +1415,9 @@ export default function TaskManager() {
       </motion.div>
     )}
   </AnimatePresence>
+
+      {/* Footer */}
+      <Footer />
 
       {/* Debug Panel */}
       <DebugPanel 
