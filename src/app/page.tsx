@@ -1249,11 +1249,26 @@ export default function TaskManager() {
         </main>
       </div>
 
-      {/* Optimized New Task Modal */}
-      <input type="checkbox" id="new-task-modal" className="modal-toggle" checked={showNewTaskForm} readOnly />
-      <div className="modal">
-        <div className="modal-box w-11/12 max-w-3xl bg-gray-900 border border-gray-700/50">
-          <div className="p-8">
+      {/* Create New Quest Modal - Properly Centered with Blur */}
+      <AnimatePresence>
+        {showNewTaskForm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ backdropFilter: 'blur(8px)', backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
+            onClick={() => setShowNewTaskForm(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-gray-900 border border-purple-500/30 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-8">
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-2xl font-black text-purple-400">
                 ⚔️ Create New Quest
@@ -1266,9 +1281,9 @@ export default function TaskManager() {
               </button>
             </div>
             
-            <div className="space-y-8">
+            <div className="space-y-6">
               <div className="form-control">
-                <label className="label">
+                <label className="label pb-2">
                   <span className="label-text font-bold text-white text-base">Quest Title *</span>
                 </label>
                 <input
@@ -1276,25 +1291,25 @@ export default function TaskManager() {
                   placeholder="Enter an epic quest title..."
                   value={newTask.title}
                   onChange={(e) => setNewTask({...newTask, title: e.target.value})}
-                  className="input input-bordered input-lg bg-gray-800 border-gray-600 text-white placeholder-gray-400 mt-2 h-10"
+                  className="input input-bordered bg-gray-800 border-gray-600 text-white placeholder-gray-400 h-12 text-lg px-4"
                 />
               </div>
               
               <div className="form-control">
-                <label className="label">
+                <label className="label pb-2">
                   <span className="label-text font-bold text-white text-base">Quest Description</span>
                 </label>
                 <textarea
                   placeholder="Describe your quest..."
                   value={newTask.description}
                   onChange={(e) => setNewTask({...newTask, description: e.target.value})}
-                  className="textarea textarea-bordered h-28 bg-gray-800 border-gray-600 text-white placeholder-gray-400 mt-2 h-28"
+                  className="textarea textarea-bordered bg-gray-800 border-gray-600 text-white placeholder-gray-400 h-24 text-base px-4 py-3 leading-relaxed"
                 />
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label pb-2">
                     <span className="label-text font-bold text-white text-base">Threat Level</span>
                   </label>
                   <select
@@ -1309,7 +1324,7 @@ export default function TaskManager() {
                 </div>
                 
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label pb-2">
                     <span className="label-text font-bold text-white text-base">Quest Rank</span>
                   </label>
                   <select
@@ -1326,10 +1341,10 @@ export default function TaskManager() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text font-bold text-white text-base">Deadline</span>
-                  </label>
+                              <div className="form-control">
+                <label className="label pb-2">
+                  <span className="label-text font-bold text-white text-base">Deadline</span>
+                </label>
                   <input
                     type="date"
                     value={newTask.dueDate}
@@ -1339,7 +1354,7 @@ export default function TaskManager() {
                 </div>
                 
                 <div className="form-control">
-                  <label className="label">
+                  <label className="label pb-2">
                     <span className="label-text font-bold text-white text-base">Category</span>
                   </label>
                   <select
@@ -1395,8 +1410,10 @@ export default function TaskManager() {
               </button>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
+    )}
+  </AnimatePresence>
 
       {/* Debug Panel */}
       <DebugPanel 
