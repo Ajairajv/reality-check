@@ -171,7 +171,7 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
       if (weight >= 100) multiplier = 2;
       else if (weight >= 50) multiplier = 1.5;
       else if (weight >= 25) multiplier = 1.2;
-      performanceText = `${weight} lbs`;
+      performanceText = `${weight} kg`;
     } else if (selectedExercise.type === 'pages' && exerciseData.pages) {
       const pages = parseInt(exerciseData.pages);
       if (pages >= 50) multiplier = 2;
@@ -196,8 +196,13 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
       statRewards[stat] = Math.round(value * finalMultiplier);
     });
 
-    // Apply stat boosts
-    onStatBoost(statRewards);
+    // Calculate XP gain based on exercise and performance
+    const baseXp = 20; // Base XP for any exercise
+    const performanceXp = Math.round(baseXp * finalMultiplier);
+    const totalXp = Math.max(performanceXp, 10); // Minimum 10 XP
+
+    // Apply stat boosts and XP gain
+    onStatBoost(statRewards, totalXp);
 
     // Show notification
     const statGains = Object.entries(statRewards)
@@ -205,11 +210,11 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
       .join(', ');
     
     onAddNotification(
-      `💪 ${selectedExercise.name} completed! ${performanceText} - ${statGains}`, 
+      `💪 ${selectedExercise.name} completed! ${performanceText} - ${statGains} +${totalXp} XP`, 
       'success'
     );
 
-    // Reset form
+    // Reset form and close all modals
     setExerciseData({
       sets: '',
       reps: '',
@@ -220,7 +225,9 @@ const ExerciseTracker = ({ user, onStatBoost, onAddNotification }) => {
       difficulty: 'normal'
     });
     setShowExerciseModal(false);
+    setShowCategoryModal(false);
     setSelectedExercise(null);
+    setSelectedCategory(null);
   };
 
   const openExerciseModal = (exercise, category) => {
